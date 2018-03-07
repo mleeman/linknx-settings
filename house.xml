@@ -110,7 +110,7 @@
 	<object type="5.xxx" id="val-dim-bur" gad="1/6/0">Brightness Value feedback Bureau Lights</object>
 	<object type="5.xxx" id="val-dim-liv" gad="1/6/1">Brightness Value feedback value Living Luster</object>
 	<object type="5.xxx" id="val-dim-sit" gad="1/6/2">Brightness Value feedback Sitting Area</object>
-	<!-- 
+	<!--
 	    With this config, any info received for 3/0/4 will also
 	    update internal state of object "87" (without sending a write
 	    telegram for address 2/0/0 on the bus.). If "87" is modified,
@@ -432,7 +432,7 @@
         <rule id="outside_garage_on">
             <condition type='timer' trigger='true'>
                 <at type='sunset' offset="-20m"/>
-            </condition> 
+            </condition>
             <actionlist>
 	        <!-- lights outside garage -->
                 <action type="set-value" id="out_0" value="on" />
@@ -441,7 +441,7 @@
         <rule id="outside_garage_off">
             <condition type='timer' trigger='true'>
                 <at hour="22" min="01" />
-            </condition> 
+            </condition>
             <actionlist>
 	        <!-- lights outside garage -->
                 <action type="set-value" id="out_0" value="off" />
@@ -451,7 +451,7 @@
             <condition type='timer' trigger='true'>
                 <at type='sunset' offset="-30m"/>
                 <until hour='23' min='01' />
-            </condition> 
+            </condition>
             <actionlist>
 	        <!-- leds living on for some time -->
                 <action type="set-value" id="13" value="on" />
@@ -460,7 +460,7 @@
         <rule id="living_leds_off">
             <condition type='timer' trigger='true'>
                 <at hour="23" min="01" />
-            </condition> 
+            </condition>
             <actionlist>
 	        <!-- leds living on for some time -->
                 <action type="set-value" id="13" value="off" />
@@ -625,7 +625,7 @@
             </condition>
 	    <actionlist>
 	        <action type="set-value" id="mode-room-se" value="standby" />
-		<!-- close the shutters in case so left the windows open 
+		<!-- close the shutters in case so left the windows open
 		     this should never be executed since it top floor
 		     will be close before this rule kicks in
 		  -->
@@ -738,7 +738,7 @@
                 <action type="set-value" id="91" value="off" />
 	    </actionlist>
 	</rule>
-    	<!-- up windows upstairs at 9h20 -->
+	<!-- up windows upstairs at 9h20 -->
 	<rule id="holiday1">
 	    <condition type="and">
                 <condition type="timer" trigger="true">
@@ -868,9 +868,9 @@
 	</rule>
 	<rule id="alarm_wind">
 	   <condition type="object" id="w_alarm" value="on" trigger="true" />
-	   <actionlist> 
+	   <actionlist>
               <action type="set-value" id="awning-mov" value="off" />
-	   </actionlist> 
+	   </actionlist>
 	</rule>
     </rules>
 </config>
