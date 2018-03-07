@@ -1,0 +1,876 @@
+<?xml version="1.0" ?>
+<config>
+    <objects>
+<!--
+1.001: switching (on/off) (EIS1)
+3.007: dimming (control of dimmer using up/down/stop) (EIS2)
+3.008: blinds (control of blinds using close/open/stop)
+5.xxx: 8bit unsigned integer (from 0 to 255) (EIS6)
+5.001: scaling (from 0 to 100%)
+5.003: angle (from 0 to 360°)
+6.xxx: 8bit signed integer (EIS14)
+7.xxx: 16bit unsigned integer (EIS10)
+8.xxx: 16bit signed integer
+9.xxx: 16 bit floating point number (EIS5)
+10.001: time (EIS3)
+11.001: date (EIS4)
+12.xxx: 32bit unsigned integer (EIS11)
+13.xxx: 32bit signed integer
+14.xxx: 32 bit IEEE 754 floating point number
+16.000: string (max 14 ASCII char) (EIS15)
+20.102: heating mode (comfort/standby/night/frost)
+-->
+        <!-- ETS values exported as CSV, and parsed with some shell scripting -->
+	<object type="1.001" id="3" gad="0/0/1">Kitchen TLs (on/off) </object>
+	<object type="1.001" id="4" gad="0/0/2">Kitchen main light (on/off) </object>
+	<object type="1.001" id="5" gad="0/0/3">Storage Room Downstairs (on/off) </object>
+	<object type="1.001" id="6" gad="0/0/4">waskot (on/off) </object>
+	<object type="1.001" id="7" gad="0/0/5">Garage light (on/off) </object>
+	<object type="1.001" id="garage-poort" gad="0/0/6">Garage poort (on/off) </object>
+	<object type="1.001" id="9" gad="0/0/7">Chauffage Ketel kontakt (on/off) </object>
+	<object type="1.001" id="10" gad="0/0/8">hall wand (on/off) </object>
+	<object type="1.001" id="out_0" gad="0/0/9">Outside Garage (on/off) </object>
+	<object type="1.001" id="12" gad="0/0/10">WC Downstairs (on/off) </object>
+	<object type="1.001" id="13" gad="0/0/11">Living Muur spots on off (on/off) </object>
+	<object type="1.001" id="14" gad="0/0/12">Room NE light (on/off) </object>
+	<object type="1.001" id="15" gad="0/0/13">Room SE Main light (on/off) </object>
+	<object type="1.001" id="16" gad="0/0/14">Room SE dressing (on/off) </object>
+	<object type="1.001" id="17" gad="0/0/15">Room SE Wandlight Marc (on/off) </object>
+	<object type="1.001" id="18" gad="0/0/16">Room SE Wandlight Nath (on/off) </object>
+	<object type="1.001" id="19" gad="0/0/17">Room SW Main light (on/off) </object>
+	<object type="1.001" id="20" gad="0/0/18">Room NW Main light (on/off) </object>
+	<object type="1.001" id="21" gad="0/0/19">Room Z Main light (on/off) </object>
+	<object type="1.001" id="22" gad="0/0/20">Bathroom Light meubel (on/off) </object>
+	<object type="1.001" id="23" gad="0/0/21">Bathroom Main light (on/off) </object>
+	<object type="1.001" id="24" gad="0/0/22">Bathroom Ventilator (on/off) </object>
+	<object type="1.001" id="25" gad="0/0/23">WC Upstairs (on/off) </object>
+	<object type="1.001" id="26" gad="0/0/24">Corridor Light Corridor (on/off) </object>
+	<object type="1.001" id="27" gad="0/0/25">Corridor LEDs Stairs (on/off) </object>
+	<object type="1.001" id="28" gad="0/0/26">Corridor LEDs Corridor (on/off) </object>
+	<object type="1.001" id="29" gad="0/0/27">Corridor Light Attick (on/off) </object>
+	<object type="1.001" id="30" gad="0/0/28">ALL VALVES CLOSED (on/off) </object>
+	<object type="1.001" id="out_1" gad="0/0/29">Outside Kitchen/South (on/off) </object>
+	<object type="1.001" id="out_2" gad="0/0/30">Outside North East (on/off) </object>
+	<object type="1.001" id="out_3" gad="0/0/31">Outside West (on/off) </object>
+	<object type="1.001" id="fare_tuin" gad="0/0/32">Licht Fare Tuin (on/off) </object>
+	<object type="1.001" id="32" gad="0/1/1">status Kitchen TLs (on/off) </object>
+	<object type="1.001" id="33" gad="0/1/2">status Kitchen main light (on/off) </object>
+	<object type="1.001" id="34" gad="0/1/3">status Storage Room Downstairs (on/off) </object>
+	<object type="1.001" id="35" gad="0/1/4">status waskot (on/off) </object>
+	<object type="1.001" id="36" gad="0/1/5">status Garage light (on/off) </object>
+	<object type="1.001" id="37" gad="0/1/6">status Garage poort (on/off) </object>
+	<object type="1.001" id="38" gad="0/1/7">status Chauffage Ketel kontakt (on/off) </object>
+	<object type="1.001" id="39" gad="0/1/8">status hall wand (on/off) </object>
+	<object type="1.001" id="out_0s" gad="0/1/9">Outside Garage (on/off) </object>
+	<object type="1.001" id="41" gad="0/1/10">status WC Downstairs (on/off) </object>
+	<object type="1.001" id="42" gad="0/1/11">status Living Muur spots on off (on/off) </object>
+	<object type="1.001" id="43" gad="0/1/12">status Room NE light (on/off) </object>
+	<object type="1.001" id="44" gad="0/1/13">status Room SE Main light (on/off) </object>
+	<object type="1.001" id="45" gad="0/1/14">status Room SE dressing (on/off) </object>
+	<object type="1.001" id="46" gad="0/1/15">status Room SE Wandlight Marc (on/off) </object>
+	<object type="1.001" id="47" gad="0/1/16">status Room SE Wandlight Nath (on/off) </object>
+	<object type="1.001" id="48" gad="0/1/17">status Room SW Main light (on/off) </object>
+	<object type="1.001" id="49" gad="0/1/18">status Room NW Main light (on/off) </object>
+	<object type="1.001" id="50" gad="0/1/19">status Room Z Main light (on/off) </object>
+	<object type="1.001" id="51" gad="0/1/20">status Bathroom Light meubel (on/off) </object>
+	<object type="1.001" id="52" gad="0/1/21">status Bathroom Main light (on/off) </object>
+	<object type="1.001" id="53" gad="0/1/22">status Bathroom Ventilator (on/off) </object>
+	<object type="1.001" id="54" gad="0/1/23">status WC Upstairs (on/off) </object>
+	<object type="1.001" id="55" gad="0/1/24">status Corridor Light Corridor (on/off) </object>
+	<object type="1.001" id="56" gad="0/1/25">status Corridor LEDs Stairs (on/off) </object>
+	<object type="1.001" id="57" gad="0/1/26">status Corridor LEDs Corridor (on/off) </object>
+	<object type="1.001" id="58" gad="0/1/27">status Corridor Light Attick (on/off) </object>
+	<object type="1.001" id="out_1s" gad="0/1/29">Outside Kitchen/South (on/off) </object>
+	<object type="1.001" id="out_2s" gad="0/1/30">Outside North East (on/off) </object>
+	<object type="1.001" id="out_3s" gad="0/1/31">Outside West (on/off) </object>
+	<object type="1.001" id="fare_tuins" gad="0/1/32">Licht Fare Tuin (on/off) </object>
+	<object type="1.001" id="overrule_garage" gad="0/2/5">Overrule Garage Licht (on/off) </object>
+	<object type="1.001" id="60" gad="0/2/8">status hall wand (on/off) </object>
+	<object type="1.001" id="61" gad="0/2/10">status WC Downstairs (on/off) </object>
+	<object type="1.001" id="62" gad="0/2/23">status WC Upstairs (on/off) </object>
+	<object type="1.001" id="63" gad="0/2/24">status Corridor Light Corridor (on/off) </object>
+	<object type="1.001" id="66" gad="1/0/1"><listener gad="1/4/1" />Bureau Lights on/off (dimmen) </object>
+	<object type="1.001" id="67" gad="1/0/2"><listener gad="1/4/2" />Living Luster on/off dim (dimmen) </object>
+	<object type="1.001" id="68" gad="1/0/3"><listener gad="1/4/3" />Sitting Area on/off dim (dimmen) </object>
+	<object type="3.007" id="70" gad="1/1/1">dimmen Bureau Lights dim (dimmen) </object>
+	<object type="3.007" id="71" gad="1/1/2">dimmen Living Light Luster dim (dimmen) </object>
+	<object type="3.007" id="72" gad="1/1/3">dimmen Sitting Area dim (dimmen) </object>
+	<object type="5.xxx" id="74" gad="1/2/1">value Bureau Lights on/off (dimmen) </object>
+	<object type="5.xxx" id="75" gad="1/2/2">value Living Luster on/off dim (dimmen) </object>
+	<object type="5.xxx" id="76" gad="1/2/3">value Sitting Area on/off dim (dimmen) </object>
+	<object type="1.001" id="78" gad="1/3/1">value Bureau Lights on/off (dimmen) </object>
+	<object type="1.001" id="79" gad="1/3/2">value Living Luster on/off dim (dimmen) </object>
+	<object type="1.001" id="80" gad="1/3/3">value Sitting Area on/off dim (dimmen) </object>
+	<object type="1.001" id="82" gad="1/4/1">value Bureau Lights on/off (dimmen) </object>
+	<object type="1.001" id="83" gad="1/4/2">value Living Luster on/off dim (dimmen) </object>
+	<object type="1.001" id="84" gad="1/4/3">value Sitting Area on/off dim (dimmen) </object>
+	<object type="1.001" id="val-switch-bur" gad="1/5/2">Switching Value feedback Bureau Lights</object>
+	<object type="1.001" id="val-switch-liv" gad="1/5/1">Switching Value feedback value Living Luster</object>
+	<object type="1.001" id="val-switch-sit" gad="1/5/0">Switching Value feedback Sitting Area</object>
+	<object type="5.xxx" id="val-dim-bur" gad="1/6/0">Brightness Value feedback Bureau Lights</object>
+	<object type="5.xxx" id="val-dim-liv" gad="1/6/1">Brightness Value feedback value Living Luster</object>
+	<object type="5.xxx" id="val-dim-sit" gad="1/6/2">Brightness Value feedback Sitting Area</object>
+	<!-- 
+	    With this config, any info received for 3/0/4 will also
+	    update internal state of object "87" (without sending a write
+	    telegram for address 2/0/0 on the bus.). If "87" is modified,
+	    it will only send a write telegram for group address 2/0/0,
+	    not 3/0/4
+	-->
+	<object type="1.001" id="87" gad="2/0/0"><listener gad="3/0/1" /><listener gad="3/0/4" />Bureau shutters up/down (engine controlled) </object>
+	<object type="1.001" id="88" gad="2/0/1"><listener gad="3/0/1" /><listener gad="3/0/4" />waskot shutters up/down (engine controlled) </object>
+	<object type="1.001" id="89" gad="2/0/2"><listener gad="3/0/1" /><listener gad="3/0/4" />Kitchen wasbak shutters up/down (engine controlled) </object>
+	<object type="1.001" id="90" gad="2/0/3"><listener gad="3/0/1" /><listener gad="3/0/4" />Sitting Area Corner Window shutters up/down (engine controlled) </object>
+	<object type="1.001" id="91" gad="2/0/4"><listener gad="3/0/1" /><listener gad="3/0/4" />Kitchen window shutters up/down (engine controlled) </object>
+	<object type="1.001" id="92" gad="2/0/5"><listener gad="3/0/1" /><listener gad="3/0/4" />Living vitrine shutters up/down (engine controlled) </object>
+	<object type="1.001" id="93" gad="2/0/6"><listener gad="3/0/1" /><listener gad="3/0/4" />Kitchen door shutters up/down (engine controlled) </object>
+	<object type="1.001" id="94" gad="2/0/7"><listener gad="3/0/1" /><listener gad="3/0/5" />Room NE shutters up/down (engine controlled) </object>
+	<object type="1.001" id="95" gad="2/0/8"><listener gad="3/0/1" /><listener gad="3/0/5" />Room SE shutters up/down (engine controlled) </object>
+	<object type="1.001" id="96" gad="2/0/9"><listener gad="3/0/1" /><listener gad="3/0/5" />Room SW shutters up/down (engine controlled) </object>
+	<object type="1.001" id="97" gad="2/0/10"><listener gad="3/0/1" /><listener gad="3/0/5" />Room NW shutters up/down (engine controlled) </object>
+	<object type="1.001" id="98" gad="2/0/11"><listener gad="3/0/1" /><listener gad="3/0/5" />Room Z shutters up/down (engine controlled) </object>
+	<object type="1.001" id="shut-bur-mov-a" gad="2/0/12"><listener gad="3/0/1" /><listener gad="3/0/4" /><listener gad="2/0/0" />Bureau up/down 1/2 (engine controlled) </object>
+	<object type="1.001" id="shut-bur-mov-b" gad="2/0/13"><listener gad="3/0/1" /><listener gad="3/0/4" /><listener gad="2/0/0" />Bureau up/down 2/2 (engine controlled) </object>
+	<object type="1.001" id="shut-sit-mov-a" gad="2/0/14"><listener gad="3/0/1" /><listener gad="3/0/4" /><listener gad="2/0/3" />Sitting Area Corner Window up/down 1/2 (engine controlled) </object>
+	<object type="1.001" id="shut-sit-mov-b" gad="2/0/15"><listener gad="3/0/1" /><listener gad="3/0/4" /><listener gad="2/0/3" />Sitting Area Corner Window up/down 2/2 (engine controlled) </object>
+	<object type="1.001" id="shut-ne-mov-a" gad="2/0/16"><listener gad="3/0/1" /><listener gad="3/0/5" /><listener gad="2/0/7" />Room NE up/down 1/2 (engine controlled) </object>
+	<object type="1.001" id="shut-ne-mov-b" gad="2/0/17"><listener gad="3/0/1" /><listener gad="3/0/5" /><listener gad="2/0/7" />Room NE up/down 2/2 (engine controlled) </object>
+	<object type="1.001" id="shut-se-mov-a" gad="2/0/18"><listener gad="3/0/1" /><listener gad="3/0/5" /><listener gad="2/0/8" />Room SE up/down 1/2 (engine controlled) </object>
+	<object type="1.001" id="shut-se-mov-b" gad="2/0/19"><listener gad="3/0/1" /><listener gad="3/0/5" /><listener gad="2/0/8" />Room SE up/down 2/2 (engine controlled) </object>
+	<object type="1.001" id="shut-sw-mov-a" gad="2/0/20"><listener gad="3/0/1" /><listener gad="3/0/5" /><listener gad="2/0/9" />Room SW up/down 1/2 (engine controlled) </object>
+	<object type="1.001" id="shut-sw-mov-b" gad="2/0/21"><listener gad="3/0/1" /><listener gad="3/0/5" /><listener gad="2/0/9" />Room SW up/down 2/2 (engine controlled) </object>
+	<object type="1.001" id="shut-nw-mov-a" gad="2/0/22"><listener gad="3/0/1" /><listener gad="3/0/5" /><listener gad="2/0/10" />Room NW up/down 1/2 (engine controlled) </object>
+	<object type="1.001" id="shut-nw-mov-b" gad="2/0/23"><listener gad="3/0/1" /><listener gad="3/0/5" /><listener gad="2/0/10" />Room NW up/down 2/2 (engine controlled) </object>
+	<object type="1.001" id="awning-mov" gad="2/0/24">Awning up/down (engine controlled) </object>
+	<object type="1.001" id="100" gad="2/1/0">Bureau shutters stop (engine controlled) </object>
+	<object type="1.001" id="101" gad="2/1/1">waskot shutters stop (engine controlled) </object>
+	<object type="1.001" id="102" gad="2/1/2">Kitchen wasbak shutters stop (engine controlled) </object>
+	<object type="1.001" id="103" gad="2/1/3">Sitting Area Corner Window shutters stop (engine controlled) </object>
+	<object type="1.001" id="104" gad="2/1/4">Kitchen window shutters stop (engine controlled) </object>
+	<object type="1.001" id="105" gad="2/1/5">Living  vitrine shutters stop (engine controlled) </object>
+	<object type="1.001" id="106" gad="2/1/6">Kitchen door shutters stop (engine controlled) </object>
+	<object type="1.001" id="107" gad="2/1/7">Room NE shutters stop (engine controlled) </object>
+	<object type="1.001" id="108" gad="2/1/8">Room SE shutters stop (engine controlled) </object>
+	<object type="1.001" id="109" gad="2/1/9">Room SW shutters stop (engine controlled) </object>
+	<object type="1.001" id="110" gad="2/1/10">Room NW shutters stop (engine controlled) </object>
+	<object type="1.001" id="111" gad="2/1/11">Room Z shutters stop (engine controlled) </object>
+	<object type="1.001" id="shut-bur-stop-a" gad="2/1/12">Bureau stop 1/2 (engine controlled) </object>
+	<object type="1.001" id="shut-bur-stop-b" gad="2/1/13">Bureau stop 2/2 (engine controlled) </object>
+	<object type="1.001" id="shut-sit-stop-a" gad="2/1/14">Sitting Area Corner Window stop 1/2 (engine controlled) </object>
+	<object type="1.001" id="shut-sit-stop-b" gad="2/1/15">Sitting Area Corner Window stop 2/2 (engine controlled) </object>
+	<object type="1.001" id="shut-ne-stop-a" gad="2/1/16">Room NE stop 1/2 (engine controlled) </object>
+	<object type="1.001" id="shut-ne-stop-b" gad="2/1/17">Room NE stop 2/2 (engine controlled) </object>
+	<object type="1.001" id="shut-se-stop-a" gad="2/1/18">Room SE stop /down 1/2 (engine controlled) </object>
+	<object type="1.001" id="shut-se-stop-b" gad="2/1/19">Room SE stop 2/2 (engine controlled) </object>
+	<object type="1.001" id="shut-sw-stop-a" gad="2/1/20">Room SW stop 1/2 (engine controlled) </object>
+	<object type="1.001" id="shut-sw-stop-b" gad="2/1/21">Room SW stop 2/2 (engine controlled) </object>
+	<object type="1.001" id="shut-nw-stop-a" gad="2/1/22">Room NW stop 1/2 (engine controlled) </object>
+	<object type="1.001" id="shut-nw-stop-b" gad="2/1/23">Room NW stop 2/2 (engine controlled) </object>
+	<object type="1.001" id="awning-stop" gad="2/1/24">Awning stop (engine controlled) </object>
+	<!-- These are stateless objects; the command will be sent even if the internal state is already on/off .
+	     The default flags are cwtu, the s flag is added here (stateless)-->
+	<object type="1.001" id="all-off" gad="3/0/0" flags="cwtus">All off (functions) </object>
+	<object type="1.001" id="115" gad="3/0/1" flags="cwtus">All shutters up/down (functions) </object>
+	<object type="10.001" id="cur_time" gad="3/0/2">TIME SIGNAL (functions) </object>
+	<object type="11.001" id="cur_date" gad="3/0/3">DATE SIGNAL (functions) </object>
+	<object type="1.001" id="118" gad="3/0/4" flags="cwtus"><listener gad="3/0/1" />All shutters downstairs up/down (functions) </object>
+	<object type="1.001" id="119" gad="3/0/5" flags="cwtus"><listener gad="3/0/1" />All shutters upstairs up/down (functions) </object>
+	<object type="1.001" id="120" gad="3/0/6" flags="cwtus">All shutters downstairs up/down (functions) </object>
+	<object type="1.001" id="121" gad="3/0/7" flags="cwtus">All shutters upstairs up/down (functions) </object>
+	<object type="1.001" id="holiday" gad="3/0/8" init="on">Holiday Regime (functions) </object>
+	<!-- Weather Station values -->
+	<object type="1.001" id="w_alarm" gad="3/0/11">Weather: Safety Active (functions) </object>
+	<object type="9.xxx" id="w_wind" gad="3/0/12">Weather: Wind (functions) </object>
+	<object type="9.xxx" id="w_brightness" gad="3/0/13">Weather: Brightness (functions) </object>
+	<object type="9.xxx" id="w_temp" gad="3/0/14">Weather: Temperature (functions) </object>
+	<!-- Remainder Argus Settings -->
+	<object type="9.xxx" id="a_bright-thres-back" gad="3/0/9">Brightness Threshold back(functions) </object>
+	<object type="9.xxx" id="a_bright-tres-front" gad="3/0/10">Brightness Threshold front (functions) </object>
+	<object type="9.xxx" id="a_bright-back" gad="3/0/15">Argus: Brightness Back (functions) </object>
+	<object type="9.xxx" id="a_bright-front" gad="3/0/16">Argus: Brightness Front (functions) </object>
+	<object type="20.102" id="123" gad="3/1/0">Heating All (functions) </object>
+	<object type="20.102" id="124" gad="3/1/1">Heating Boven (functions) </object>
+	<object type="20.102" id="125" gad="3/1/2">Heating Beneden (functions) </object>
+	<object type="9.xxx" id="128" gad="4/0/0">Living current temp (heating) </object>
+	<object type="9.xxx" id="129" gad="4/0/1">Living desired temp (heating) </object>
+	<object type="9.xxx" id="130" gad="4/0/2">Living base temp (heating) </object>
+	<object type="1.001" id="131" gad="4/0/3">Living frost protection (heating) </object>
+	<object type="1.001" id="132" gad="4/0/4">Living night regime (heating) </object>
+	<object type="1.001" id="133" gad="4/0/5">Living standby regime (heating) </object>
+	<object type="1.001" id="134" gad="4/0/6">Living comfort regime (heating) </object>
+	<object type="1.001" id="135" gad="4/0/7">Living warm up (heating) </object>
+	<object type="1.001" id="136" gad="4/0/8">Living cool (heating) </object>
+	<object type="1.001" id="137" gad="4/0/9">Living regime HS (heating) </object>
+	<object type="1.001" id="138" gad="4/0/10">Living window (heating) </object>
+	<object type="1.001" id="139" gad="4/0/11">Living status KNX (heating) </object>
+	<object type="1.001" id="140" gad="4/0/12">Living status THERMO (heating) </object>
+	<object type="20.102" id="mode-living" gad="4/0/13"><listener gad="3/1/0" /><listener gad="3/1/2" />Living konnex operating mode change (heating) </object>
+	<object type="1.001" id="142" gad="4/0/14">Living konnex forced operation (heating) </object>
+	<object type="1.001" id="143" gad="4/0/15">Living heatingsaktor status (heating) </object>
+	<object type="1.001" id="144" gad="4/0/16">Living TEMP SHIFT  (heating) </object>
+	<object type="9.xxx" id="146" gad="4/1/0">Kitchen current temp (heating) </object>
+	<object type="9.xxx" id="147" gad="4/1/1">Kitchen desired temp (heating) </object>
+	<object type="9.xxx" id="148" gad="4/1/2">Kitchen base temp (heating) </object>
+	<object type="1.001" id="149" gad="4/1/3">Kitchen frost protection (heating) </object>
+	<object type="1.001" id="150" gad="4/1/4">Kitchen night regime (heating) </object>
+	<object type="1.001" id="151" gad="4/1/5">Kitchen standby regime (heating) </object>
+	<object type="1.001" id="152" gad="4/1/6">Kitchen comfort regime (heating) </object>
+	<object type="1.001" id="153" gad="4/1/7">Kitchen warm up (heating) </object>
+	<object type="1.001" id="154" gad="4/1/8">Kitchen cool (heating) </object>
+	<object type="1.001" id="155" gad="4/1/9">Kitchen regime HS (heating) </object>
+	<object type="1.001" id="156" gad="4/1/10">Kitchen window (heating) </object>
+	<object type="1.001" id="157" gad="4/1/11">Kitchen status KNX (heating) </object>
+	<object type="1.001" id="158" gad="4/1/12">Kitchen status THERMO (heating) </object>
+	<object type="20.102" id="mode-kitchen" gad="4/1/13"><listener gad="3/1/0" /><listener gad="3/1/2" />Kitchen konnex operating mode change (heating) </object>
+	<object type="1.001" id="160" gad="4/1/14">Kitchen konnex forced operation (heating) </object>
+	<object type="1.001" id="161" gad="4/1/15">Kitchen heatingsaktor status (heating) </object>
+	<object type="9.xxx" id="163" gad="4/2/0">hall current temp (heating) </object>
+	<object type="9.xxx" id="164" gad="4/2/1">hall desired temp (heating) </object>
+	<object type="9.xxx" id="165" gad="4/2/2">hall base temp (heating) </object>
+	<object type="1.001" id="166" gad="4/2/3">hall frost protection (heating) </object>
+	<object type="1.001" id="167" gad="4/2/4">hall night regime (heating) </object>
+	<object type="1.001" id="168" gad="4/2/5">hall standby regime (heating) </object>
+	<object type="1.001" id="169" gad="4/2/6">hall comfort regime (heating) </object>
+	<object type="1.001" id="170" gad="4/2/7">hall warm up (heating) </object>
+	<object type="1.001" id="171" gad="4/2/8">hall cool (heating) </object>
+	<object type="1.001" id="172" gad="4/2/9">hall regime HS (heating) </object>
+	<object type="1.001" id="173" gad="4/2/10">hall window (heating) </object>
+	<object type="1.001" id="174" gad="4/2/11">hall status KNX (heating) </object>
+	<object type="1.001" id="175" gad="4/2/12">hall status THERMO (heating) </object>
+	<object type="20.102" id="mode-hall" gad="4/2/13"><listener gad="3/1/0" /><listener gad="3/1/2" />hall konnex operating mode change (heating) </object>
+	<object type="1.001" id="177" gad="4/2/14">hall konnex forced operation (heating) </object>
+	<object type="1.001" id="178" gad="4/2/15">hall heatingsaktor status (heating) </object>
+	<object type="9.xxx" id="180" gad="4/3/0">Room NW current temp (heating) </object>
+	<object type="9.xxx" id="181" gad="4/3/1">Room NW desired temp (heating) </object>
+	<object type="9.xxx" id="182" gad="4/3/2">Room NW base temp (heating) </object>
+	<object type="1.001" id="183" gad="4/3/3">Room NW frost protection (heating) </object>
+	<object type="1.001" id="184" gad="4/3/4">Room NW night regime (heating) </object>
+	<object type="1.001" id="185" gad="4/3/5">Room NW standby regime (heating) </object>
+	<object type="1.001" id="186" gad="4/3/6">Room NW comfort regime (heating) </object>
+	<object type="1.001" id="187" gad="4/3/7">Room NW warm up (heating) </object>
+	<object type="1.001" id="188" gad="4/3/8">Room NW cool (heating) </object>
+	<object type="1.001" id="189" gad="4/3/9">Room NW regime HS (heating) </object>
+	<object type="1.001" id="190" gad="4/3/10">Room NW window (heating) </object>
+	<object type="1.001" id="191" gad="4/3/11">Room NW status KNX (heating) </object>
+	<object type="1.001" id="192" gad="4/3/12">Room NW status THERMO (heating) </object>
+	<object type="20.102" id="mode-room-nw" gad="4/3/13"><listener gad="3/1/0" /><listener gad="3/1/1" />Room NW konnex operating mode change (heating) </object>
+	<object type="1.001" id="194" gad="4/3/14">Room NW konnex forced operation (heating) </object>
+	<object type="1.001" id="195" gad="4/3/15">Room NW heatingsaktor status (heating) </object>
+	<object type="9.xxx" id="197" gad="4/4/0">Room NE current temp (heating) </object>
+	<object type="9.xxx" id="198" gad="4/4/1">Room NE desired temp (heating) </object>
+	<object type="9.xxx" id="199" gad="4/4/2">Room NE base temp (heating) </object>
+	<object type="1.001" id="200" gad="4/4/3">Room NE frost protection (heating) </object>
+	<object type="1.001" id="201" gad="4/4/4">Room NE night regime (heating) </object>
+	<object type="1.001" id="202" gad="4/4/5">Room NE standby regime (heating) </object>
+	<object type="1.001" id="203" gad="4/4/6">Room NE comfort regime (heating) </object>
+	<object type="1.001" id="204" gad="4/4/7">Room NE warm up (heating) </object>
+	<object type="1.001" id="205" gad="4/4/8">Room NE cool (heating) </object>
+	<object type="1.001" id="206" gad="4/4/9">Room NE regime HS (heating) </object>
+	<object type="1.001" id="207" gad="4/4/10">Room NE window (heating) </object>
+	<object type="1.001" id="208" gad="4/4/11">Room NE status KNX (heating) </object>
+	<object type="1.001" id="209" gad="4/4/12">Room NE status THERMO (heating) </object>
+	<object type="20.102" id="mode-room-ne" gad="4/4/13"><listener gad="3/1/0" /><listener gad="3/1/1" />Room NE konnex operating mode change (heating) </object>
+	<object type="1.001" id="211" gad="4/4/14">Room NE konnex forced operation (heating) </object>
+	<object type="1.001" id="212" gad="4/4/15">Room NE heatingsaktor status (heating) </object>
+	<object type="9.xxx" id="214" gad="4/5/0">Room SW current temp (heating) </object>
+	<object type="9.xxx" id="215" gad="4/5/1">Room SW desired temp (heating) </object>
+	<object type="9.xxx" id="216" gad="4/5/2">Room SW base temp (heating) </object>
+	<object type="1.001" id="217" gad="4/5/3">Room SW frost protection (heating) </object>
+	<object type="1.001" id="218" gad="4/5/4">Room SW night regime (heating) </object>
+	<object type="1.001" id="219" gad="4/5/5">Room SW standby regime (heating) </object>
+	<object type="1.001" id="220" gad="4/5/6">Room SW comfort regime (heating) </object>
+	<object type="1.001" id="221" gad="4/5/7">Room SW warm up (heating) </object>
+	<object type="1.001" id="222" gad="4/5/8">Room SW cool (heating) </object>
+	<object type="1.001" id="223" gad="4/5/9">Room SW regime HS (heating) </object>
+	<object type="1.001" id="224" gad="4/5/10">Room SW window (heating) </object>
+	<object type="1.001" id="225" gad="4/5/11">Room SW status KNX (heating) </object>
+	<object type="1.001" id="226" gad="4/5/12">Room SW status THERMO (heating) </object>
+	<object type="20.102" id="mode-room-sw" gad="4/5/13"><listener gad="3/1/0" /><listener gad="3/1/1" />Room SW konnex operating mode change (heating) </object>
+	<object type="1.001" id="228" gad="4/5/14">Room SW konnex forced operation (heating) </object>
+	<object type="1.001" id="229" gad="4/5/15">Room SW heatingsaktor status (heating) </object>
+	<object type="9.xxx" id="231" gad="4/6/0">Room SE current temp (heating) </object>
+	<object type="9.xxx" id="232" gad="4/6/1">Room SE desired temp (heating) </object>
+	<object type="9.xxx" id="233" gad="4/6/2">Room SE base temp (heating) </object>
+	<object type="1.001" id="234" gad="4/6/3">Room SE frost protection (heating) </object>
+	<object type="1.001" id="235" gad="4/6/4">Room SE night regime (heating) </object>
+	<object type="1.001" id="236" gad="4/6/5">Room SE standby regime (heating) </object>
+	<object type="1.001" id="237" gad="4/6/6">Room SE comfort regime (heating) </object>
+	<object type="1.001" id="238" gad="4/6/7">Room SE warm up (heating) </object>
+	<object type="1.001" id="239" gad="4/6/8">Room SE cool (heating) </object>
+	<object type="1.001" id="240" gad="4/6/9">Room SE regime HS (heating) </object>
+	<object type="1.001" id="241" gad="4/6/10">Room SE window (heating) </object>
+	<object type="1.001" id="242" gad="4/6/11">Room SE status KNX (heating) </object>
+	<object type="1.001" id="243" gad="4/6/12">Room SE status THERMO (heating) </object>
+	<object type="20.102" id="mode-room-se" gad="4/6/13"><listener gad="3/1/0" /><listener gad="3/1/1" />Room SE konnex operating mode change (heating) </object>
+	<object type="1.001" id="245" gad="4/6/14">Room SE konnex forced operation (heating) </object>
+	<object type="1.001" id="246" gad="4/6/15">Room SE heatingsaktor status (heating) </object>
+	<object type="9.xxx" id="248" gad="4/7/0">Bathroom current temp (heating) </object>
+	<object type="9.xxx" id="249" gad="4/7/1">Bathroom desired temp (heating) </object>
+	<object type="9.xxx" id="250" gad="4/7/2">Bathroom base temp (heating) </object>
+	<object type="1.001" id="251" gad="4/7/3">Bathroom frost protection (heating) </object>
+	<object type="1.001" id="252" gad="4/7/4">Bathroom night regime (heating) </object>
+	<object type="1.001" id="253" gad="4/7/5">Bathroom standby regime (heating) </object>
+	<object type="1.001" id="254" gad="4/7/6">Bathroom comfort regime (heating) </object>
+	<object type="1.001" id="255" gad="4/7/7">Bathroom warm up (heating) </object>
+	<object type="1.001" id="256" gad="4/7/8">Bathroom cool (heating) </object>
+	<object type="1.001" id="257" gad="4/7/9">Bathroom regime HS (heating) </object>
+	<object type="1.001" id="258" gad="4/7/10">Bathroom window (heating) </object>
+	<object type="1.001" id="259" gad="4/7/11">Bathroom status KNX (heating) </object>
+	<object type="1.001" id="260" gad="4/7/12">Bathroom status THERMO (heating) </object>
+	<object type="20.102" id="mode-bathroom" gad="4/7/13"><listener gad="3/1/0" /><listener gad="3/1/1" />Bathroom konnex operating mode change (heating) </object>
+	<object type="1.001" id="262" gad="4/7/14">Bathroom konnex forced operation (heating) </object>
+	<object type="1.001" id="263" gad="4/7/15">Bathroom heatingsaktor status (heating) </object>
+	<object type="9.xxx" id="room_s_00" gad="5/0/0">Room S current temp (heating) </object>
+	<object type="9.xxx" id="room_s_01" gad="5/0/1">Room S desired temp (heating) </object>
+	<object type="9.xxx" id="room_s_02" gad="5/0/2">Room S base temp (heating) </object>
+	<object type="1.001" id="room_s_03" gad="5/0/3">Room S frost protection (heating) </object>
+	<object type="1.001" id="room_s_04" gad="5/0/4">Room S night regime (heating) </object>
+	<object type="1.001" id="room_s_05" gad="5/0/5">Room S standby regime (heating) </object>
+	<object type="1.001" id="room_s_06" gad="5/0/6">Room S comfort regime (heating) </object>
+	<object type="1.001" id="room_s_07" gad="5/0/7">Room S warm up (heating) </object>
+	<object type="1.001" id="room_s_08" gad="5/0/8">Room S cool (heating) </object>
+	<object type="1.001" id="room_s_09" gad="5/0/9">Room S regime HS (heating) </object>
+	<object type="1.001" id="room_s_10" gad="5/0/10">Room S window (heating) </object>
+	<object type="1.001" id="room_s_11" gad="5/0/11">Room S status KNX (heating) </object>
+	<object type="1.001" id="room_s_12" gad="5/0/12">Room S status THERMO (heating) </object>
+	<object type="20.102" id="mode-room-s" gad="5/0/13"><listener gad="3/1/0" /><listener gad="3/1/1" />Room S konnex operating mode change (heating) </object>
+	<object type="1.001" id="room_s_14" gad="5/0/14">Room S konnex forced operation (heating) </object>
+	<object type="1.001" id="room_s_15" gad="5/0/15">Room S heatingsaktor status (heating) </object>
+    </objects>
+    <logging output="/var/log/knx/linknx.log" format="%d{%Y%m%d %H:%M:%S,%l} %5p %c %x: %m%n" level="INFO"/>
+    <services>
+        <knxconnection url="ip:127.0.0.1" />
+        <xmlserver type="inet" port="1028"/>
+        <emailserver type="smtp" host="localhost:25" from="marc.leeman@gmail.com"/>
+        <persistence type="file" path="/var/lib/linknx/persist" logpath="/var/log/knx/"/>
+	<location lon="-3.41" lat="50.86"/>
+	<!-- exceptiondays for heating -->
+        <exceptiondays>
+            <date month="10" />
+            <date month="11" />
+            <date month="12" />
+            <date month="1" />
+            <date month="2" />
+            <date month="3" />
+        </exceptiondays>
+    </services>
+    <rules>
+        <!-- some general lights rules -->
+        <rule id="stairs_leds_on">
+	    <condition type='timer' trigger='true'>
+	        <at type='sunset' offset="-30m" />
+	    </condition>
+	    <actionlist>
+	        <!-- leds staircase and corridor -->
+                <action type="set-value" id="27" value="on" />
+                <action type="set-value" id="28" value="on" />
+	    </actionlist>
+	</rule>
+        <rule id="stairs_leds_off">
+	    <condition type='timer' trigger='true'>
+	        <at type='sunrise' offset="+30m" />
+	    </condition>
+	    <actionlist>
+	        <!-- leds staircase and corridor -->
+                <action type="set-value" id="27" value="off" />
+                <action type="set-value" id="28" value="off" />
+	    </actionlist>
+	</rule>
+	<rule id="shutters_up_down">
+            <condition type="timer" trigger="true">
+	        <at type="sunset" offset="-20m" />
+	    </condition>
+	    <actionlist>
+	        <!-- upstairs down -->
+                <action type="set-value" id="119" value="on" />
+	    </actionlist>
+	</rule>
+	<!-- downstairs down only if kitchen light is not on -->
+	<rule id="shutters_down_down">
+	    <condition type="and">
+                <condition type="timer" trigger="true">
+                    <at type="sunset" />
+                </condition>
+		<condition type="object" id="4" value="off" />
+            </condition>
+	    <actionlist>
+	        <!-- downstairs down -->
+                <action type="set-value" id="118" value="on" />
+                <action type="set-value" id="115" value="on" />
+	    </actionlist>
+	</rule>
+	    <!-- Note that if-false stands for the stateless variant: if
+		 for some reason you want to make certain that e.g. a light
+		 is on no matter what happened; use "if-true"/"if-false";
+		 the command will be put on the bus even if the internal
+		 state of linkx thinkgs it is already on -->
+	<rule id="shutters_down_down_false">
+	    <condition type="and">
+                <condition type="timer" trigger="true">
+                    <at type="sunset" />
+                </condition>
+		<condition type="object" id="4" value="on" />
+            </condition>
+	    <actionlist>
+                <action type="set-value" id="87" value="on" />
+                <action type="set-value" id="89" value="on" />
+                <action type="set-value" id="90" value="on" />
+                <action type="set-value" id="91" value="on" />
+                <action type="set-value" id="92" value="on" />
+	    </actionlist>
+	</rule>
+	<!-- close awning before sunset -->
+	<rule id="awning_up">
+            <condition type="timer" trigger="true">
+	        <at type="sunset" offset="-20m" />
+	    </condition>
+	    <actionlist>
+	        <!-- awning up -->
+                <action type="set-value" id="awning-mov" value="off" />
+	    </actionlist>
+	</rule>
+        <rule id="outside_garage_on">
+            <condition type='timer' trigger='true'>
+                <at type='sunset' offset="-20m"/>
+            </condition> 
+            <actionlist>
+	        <!-- lights outside garage -->
+                <action type="set-value" id="out_0" value="on" />
+            </actionlist>
+        </rule>
+        <rule id="outside_garage_off">
+            <condition type='timer' trigger='true'>
+                <at hour="22" min="01" />
+            </condition> 
+            <actionlist>
+	        <!-- lights outside garage -->
+                <action type="set-value" id="out_0" value="off" />
+            </actionlist>
+        </rule>
+        <rule id="living_leds_on">
+            <condition type='timer' trigger='true'>
+                <at type='sunset' offset="-30m"/>
+                <until hour='23' min='01' />
+            </condition> 
+            <actionlist>
+	        <!-- leds living on for some time -->
+                <action type="set-value" id="13" value="on" />
+            </actionlist>
+        </rule>
+        <rule id="living_leds_off">
+            <condition type='timer' trigger='true'>
+                <at hour="23" min="01" />
+            </condition> 
+            <actionlist>
+	        <!-- leds living on for some time -->
+                <action type="set-value" id="13" value="off" />
+            </actionlist>
+        </rule>
+        <rule id="cur_time_date">
+            <condition type="timer" trigger="true">
+                <every>3600</every>
+            </condition>
+            <actionlist>
+	        <!-- set date and time on devices -->
+                <action type="set-value" id="cur_time" value="now" />
+                <action type="set-value" id="cur_date" value="now" />
+            </actionlist>
+        </rule>
+	<!-- heating automation -->
+	<!-- note that there are always to parts in the rule. The first
+	     one is the setting to turn up the heating. This is only
+	     needed during the exception months. However, turning off
+	     the heating is done _always_. This is to compensate for
+	     cold weather and manual control outside those exception
+	     months where heating is fully automated.
+	     This is also the reason why the 'until' is not used since
+	     it would only be valid during exception months. -->
+	<!-- kitchen and living room -->
+	<rule id="week_heating_morning_on">
+            <condition type="timer" trigger="true">
+                <at hour="5" min="30" wdays="12345" />
+            </condition>
+	    <actionlist>
+	        <action type="set-value" id="mode-living" value="comfort" />
+	        <action type="set-value" id="mode-kitchen" value="comfort" />
+	    </actionlist>
+	</rule>
+	<!-- turn off again -->
+	<rule id="week_heating_morning_off">
+            <condition type="timer" trigger="true">
+                <at hour="7" min="30" wdays="12345" />
+            </condition>
+	    <actionlist>
+	        <action type="set-value" id="mode-living" value="night" />
+	        <action type="set-value" id="mode-kitchen" value="night" />
+	    </actionlist>
+	</rule>
+	<!-- heating starts at 6h30 during weekend -->
+	<rule id="weekend_heating_morning_on">
+            <condition type="timer" trigger="true">
+                <at hour="6" min="30" wdays="67" />
+            </condition>
+	    <actionlist>
+	        <action type="set-value" id="mode-living" value="comfort" />
+	        <action type="set-value" id="mode-kitchen" value="comfort" />
+	    </actionlist>
+	</rule>
+	<!-- turn off again -->
+	<rule id="weekend_heating_morning_off">
+            <condition type="timer" trigger="true">
+                <at hour="9" min="00" wdays="67" />
+            </condition>
+	    <actionlist>
+	        <action type="set-value" id="mode-living" value="night" />
+	        <action type="set-value" id="mode-kitchen" value="night" />
+	    </actionlist>
+	</rule>
+	<!-- living comfort evening -->
+	<rule id="heating_living_evening_on">
+            <condition type="timer" trigger="true">
+                <at hour="15" min="30" />
+            </condition>
+	    <actionlist>
+	        <action type="set-value" id="mode-living" value="comfort" />
+	        <action type="set-value" id="mode-kitchen" value="comfort" />
+	    </actionlist>
+	</rule>
+	<!-- turn off again -->
+	<rule id="heating_living_evening_off">
+            <condition type="timer" trigger="true">
+                <at hour="22" min="30" />
+            </condition>
+	    <actionlist>
+	        <action type="set-value" id="mode-living" value="night" />
+	        <action type="set-value" id="mode-kitchen" value="night" />
+	    </actionlist>
+	</rule>
+	<!-- no longer comfort in kitchen from 21h00 onwards -->
+	<rule id="heating_kitchen_exception_off">
+            <condition type="timer" trigger="true">
+                <at hour="20" min="00" />
+            </condition>
+	    <actionlist>
+	        <action type="set-value" id="mode-kitchen" value="standby" />
+	    </actionlist>
+	</rule>
+	<!-- pink room  -->
+	<rule id="heating_room_axelle_on">
+            <condition type="timer" trigger="true">
+                <!-- only during the exception months -->
+                <at hour="18" min="00" exception="yes" />
+            </condition>
+	    <actionlist>
+	        <action type="set-value" id="mode-room-nw" value="standby" />
+		<!-- close the shutters in case so left the windows open -->
+                <action type="set-value" id="97" value="on" />
+	    </actionlist>
+	</rule>
+	<!-- turn off again -->
+	<rule id="heating_room_axelle_off">
+            <condition type="timer" trigger="true">
+                <at hour="21" min="00" />
+            </condition>
+	    <actionlist>
+	        <action type="set-value" id="mode-room-nw" value="night" />
+	    </actionlist>
+	</rule>
+	<!-- orange room  -->
+	<rule id="heating_room_julie_on">
+            <condition type="timer" trigger="true">
+                <!-- only during the exception months -->
+                <at hour="18" min="00" exception="yes" />
+            </condition>
+	    <actionlist>
+	        <action type="set-value" id="mode-room-sw" value="standby" />
+		<!-- close the shutters in case so left the windows open -->
+                <action type="set-value" id="96" value="on" />
+	    </actionlist>
+	</rule>
+	<!-- turn off again -->
+	<rule id="heating_room_julie_off">
+            <condition type="timer" trigger="true">
+                <at hour="21" min="00" />
+            </condition>
+	    <actionlist>
+	        <action type="set-value" id="mode-room-sw" value="night" />
+	    </actionlist>
+	</rule>
+	<!-- purple room -->
+	<rule id="heating_room_eline_on">
+            <condition type="timer" trigger="true">
+                <!-- only during the exception months -->
+                <at hour="18" min="00" exception="yes" />
+            </condition>
+	    <actionlist>
+	        <action type="set-value" id="mode-room-ne" value="standby" />
+		<!-- close the shutters in case so left the windows open -->
+                <action type="set-value" id="94" value="on" />
+	    </actionlist>
+	</rule>
+	<!-- turn off again -->
+	<rule id="heating_room_eline_off">
+            <condition type="timer" trigger="true">
+                <at hour="21" min="00" />
+            </condition>
+	    <actionlist>
+	        <action type="set-value" id="mode-room-ne" value="night" />
+	    </actionlist>
+	</rule>
+	<!-- room parents -->
+	<rule id="heating_room_nathalie_marc_on">
+            <condition type="timer" trigger="true">
+                <!-- only during the exception months -->
+                <at hour="20" min="30" exception="yes" />
+            </condition>
+	    <actionlist>
+	        <action type="set-value" id="mode-room-se" value="standby" />
+		<!-- close the shutters in case so left the windows open 
+		     this should never be executed since it top floor
+		     will be close before this rule kicks in
+		  -->
+                <action type="set-value" id="95" value="on" />
+	    </actionlist>
+	</rule>
+	<!-- turn off again -->
+	<rule id="heating_room_nathalie_marc_off">
+            <condition type="timer" trigger="true">
+                <at hour="22" min="00" />
+            </condition>
+	    <actionlist>
+	        <action type="set-value" id="mode-room-se" value="frost" />
+	    </actionlist>
+	</rule>
+	<!-- bathroom in the morning -->
+	<rule id="heating_bathroom_on">
+            <condition type="timer" trigger="true">
+                <!-- only during the exception months -->
+                <at hour="5" min="30" exception="yes" />
+            </condition>
+	    <actionlist>
+	        <action type="set-value" id="mode-bathroom" value="comfort" />
+	    </actionlist>
+	</rule>
+	<rule id="heating_bathroom_off">
+            <condition type="timer" trigger="true">
+                <at hour="7" min="30" />
+            </condition>
+	    <actionlist>
+	        <action type="set-value" id="mode-bathroom" value="night" />
+	    </actionlist>
+	</rule>
+	<!-- frost protection upstairs -->
+	<rule id="frost_upstairs">
+            <condition type="timer" trigger="true">
+                <at hour="08" min="00" />
+            </condition>
+	    <actionlist>
+		<!-- specify the full list, if for some reason the group
+		     value of 124 is still frost, nothing is being sent on
+   		     the bus -->
+	        <action type="set-value" id="124" value="frost" />
+	        <action type="set-value" id="mode-room-nw" value="frost" />
+	        <action type="set-value" id="mode-room-ne" value="frost" />
+	        <action type="set-value" id="mode-room-sw" value="frost" />
+	        <action type="set-value" id="mode-room-se" value="frost" />
+	        <action type="set-value" id="mode-bathroom" value="frost" />
+	    </actionlist>
+	</rule>
+	<!-- reset states at night -->
+	<!-- catch all, go to night for all at 23h -->
+	<rule id="all_night">
+            <condition type="timer" trigger="true">
+                <at hour="23" min="59" />
+            </condition>
+	    <actionlist>
+                <!-- living -->
+	        <action type="set-value" id="mode-living" value="night" />
+                <!-- kitchen -->
+	        <action type="set-value" id="mode-kitchen" value="night" />a
+		<!-- hall -->
+	        <action type="set-value" id="mode-hall" value="frost" />
+                <!-- room NW -->
+	        <action type="set-value" id="mode-room-nw" value="night" />
+                <!-- room NE -->
+	        <action type="set-value" id="mode-room-ne" value="frost" />
+                <!-- room SW -->
+	        <action type="set-value" id="mode-room-sw" value="night" />
+                <!-- room SE -->
+	        <action type="set-value" id="mode-room-se" value="frost" />
+                <!-- bathroom -->
+	        <action type="set-value" id="mode-bathroom" value="frost" />
+		<!-- room south -->
+	        <action type="set-value" id="mode-room-s" value="frost" />
+		<!-- group address upstairs -->
+	        <!-- <action type="set-value" id="124" value="night" /> -->
+		<!-- group address downstairs -->
+	        <!-- <action type="set-value" id="125" value="night" /> -->
+		<!-- light attic off  -->
+	        <action type="set-value" id="29" value="off" />
+		<!-- light outside garage off -->
+                <action type="set-value" id="out_0" value="off" />
+		<!-- light outside kitchen off, probably better a bit
+		     later in summer time -->
+                <action type="set-value" id="out_1" value="off" />a
+		<!-- awning up -->
+                <action type="set-value" id="awning-mov" value="off" />
+		<!-- light garden can go out in case we forgot -->
+                <action type="set-value" id="fare_tuins" value="off" />
+		<!-- disable override garage again, ppl make mistakes -->
+		<action type="set-value" id="overrule_garage" value="off" />
+	    </actionlist>
+	</rule>
+	<!-- Note that the rules are split in an on and off rule and the
+	until syntax with two action lists is not used since we only want
+	this to happen when the holiday condition is evaluated to true -->
+        <!-- up windows down at 8h25 -->
+	<rule id="holiday0">
+	    <condition type="and">
+                <condition type="timer" trigger="true">
+                  <at hour="08" min="25" />
+                </condition>
+		<condition type="object" id="holiday" value="on" />
+            </condition>
+	    <actionlist>
+                <action type="set-value" id="87" value="off" />
+                <action type="set-value" id="89" value="off" />
+                <action type="set-value" id="90" value="off" />
+                <action type="set-value" id="91" value="off" />
+	    </actionlist>
+	</rule>
+    	<!-- up windows upstairs at 9h20 -->
+	<rule id="holiday1">
+	    <condition type="and">
+                <condition type="timer" trigger="true">
+                    <at hour="09" min="20" />
+                </condition>
+		<condition type="object" id="holiday" value="on" />
+            </condition>
+	    <actionlist>
+                <action type="set-value" id="118" value="off" />
+                <action type="set-value" id="119" value="off" />
+	    </actionlist>
+	</rule>
+	<!-- simulate activity living -->
+	<rule id="holiday2a">
+	    <condition type="and">
+                <condition type="timer" trigger="true">
+                    <at hour="21" min="15" />
+                </condition>
+               <condition type="object" id="holiday" value="on" />
+            </condition>
+	    <actionlist>
+                <action type="set-value" id="68" value="on" />
+	    </actionlist>
+	</rule>
+	<rule id="holiday2b">
+	    <condition type="and">
+                <condition type="timer" trigger="true">
+                    <at hour="22" min="07" />
+                </condition>
+               <condition type="object" id="holiday" value="on" />
+            </condition>
+	    <actionlist>
+                <action type="set-value" id="68" value="off" />
+	    </actionlist>
+	</rule>
+	<!-- simulate activity hall -->
+	<rule id="holiday3a">
+	    <condition type="and">
+                <condition type="timer" trigger="true">
+                    <at hour="22" min="07" />
+                </condition>
+               <condition type="object" id="holiday" value="on" />
+            </condition>
+	    <actionlist>
+                <action type="set-value" id="10" value="on" />
+	    </actionlist>
+	</rule>
+	<rule id="holiday3b">
+	    <condition type="and">
+                <condition type="timer" trigger="true">
+                    <at hour="22" min="12" />
+                </condition>
+               <condition type="object" id="holiday" value="on" />
+            </condition>
+	    <actionlist>
+                <action type="set-value" id="10" value="off" />
+	    </actionlist>
+	</rule>
+	<!-- simulate activity hall boven -->
+	<rule id="holiday4a">
+	    <condition type="and">
+                <condition type="timer" trigger="true">
+                    <at hour="22" min="09" />
+                </condition>
+               <condition type="object" id="holiday" value="on" />
+            </condition>
+	    <actionlist>
+                <action type="set-value" id="26" value="on" />
+	    </actionlist>
+	</rule>
+	<rule id="holiday4b">
+	    <condition type="and">
+                <condition type="timer" trigger="true">
+                    <at hour="22" min="23" />
+                </condition>
+               <condition type="object" id="holiday" value="on" />
+            </condition>
+	    <actionlist>
+                <action type="set-value" id="26" value="off" />
+	    </actionlist>
+	</rule>
+	<!-- simulate activity bathroom -->
+	<rule id="holiday5a">
+	    <condition type="and">
+                <condition type="timer" trigger="true">
+                    <at hour="22" min="12" />
+                </condition>
+               <condition type="object" id="holiday" value="on" />
+            </condition>
+	    <actionlist>
+                <action type="set-value" id="23" value="on" />
+	    </actionlist>
+	</rule>
+	<rule id="holiday5b">
+	    <condition type="and">
+                <condition type="timer" trigger="true">
+                    <at hour="22" min="20" />
+                </condition>
+               <condition type="object" id="holiday" value="on" />
+            </condition>
+	    <actionlist>
+                <action type="set-value" id="23" value="off" />
+	    </actionlist>
+	</rule>
+	<!-- simulate activity hall boven (pitt-stop) -->
+	<rule id="holiday6a">
+	    <condition type="and">
+                <condition type="timer" trigger="true">
+                    <at hour="2" min="41" />
+                </condition>
+               <condition type="object" id="holiday" value="on" />
+            </condition>
+	    <actionlist>
+                <action type="set-value" id="26" value="on" />
+	    </actionlist>
+	</rule>
+	<rule id="holiday6b">
+	    <condition type="and">
+                <condition type="timer" trigger="true">
+                    <at hour="2" min="46" />
+                </condition>
+               <condition type="object" id="holiday" value="on" />
+            </condition>
+	    <actionlist>
+                <action type="set-value" id="26" value="off" />
+	    </actionlist>
+	</rule>
+	<rule id="alarm_wind">
+	   <condition type="object" id="w_alarm" value="on" trigger="true" />
+	   <actionlist> 
+              <action type="set-value" id="awning-mov" value="off" />
+	   </actionlist> 
+	</rule>
+    </rules>
+</config>
