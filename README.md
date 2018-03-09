@@ -116,19 +116,27 @@ See this section for simple flashing of your system.
 1. u-boot.kwb
 2. uImage
 
-Use a VFAT formatted memory stick and copy the u-boot.kwb file (built with buildroot) and the uImage onto that. Connect the SheevaPlug to your machine with the USB cable and power it up. Make certain you are ready to interrupt the boot cycle with your favourite serial connector (e.g. minicom, screen). The serial settings are <u>115200 8N1</u> on device node /dev/ttyUSB0.
+Use a VFAT formatted memory stick and copy the u-boot.kwb file (built
+with buildroot) and the uImage onto that. Connect the SheevaPlug to
+your machine with the USB cable and power it up. Make certain you are
+ready to interrupt the boot cycle with your favourite serial connector
+(e.g. minicom, screen). The serial settings are <u>115200 8N1</u> on
+device node /dev/ttyUSB0.
 
-nand device 0
-usb start
+  nand device 0
+  usb start
 
-Erase the bootloader location and burn the newly compiled bootloader onto the NAND flash.
+Erase the bootloader location and burn the newly compiled bootloader
+onto the NAND flash.
 
-nand erase 0x0 0xa0000
-fatload usb 0:1 0x8000000 /u-boot.kwb
-nand write.e 0x8000000 0x0 0xa0000
-reset
+    nand erase 0x0 0xa0000
+    fatload usb 0:1 0x8000000 /u-boot.kwb
+    nand write.e 0x8000000 0x0 0xa0000
+    reset
 
-At this point, the system should boot with the newly compiled bootloader. Make certain to interrupt the boot cycle before the counter hits 0.
+At this point, the system should boot with the newly compiled
+bootloader. Make certain to interrupt the boot cycle before the counter
+hits 0.
 
 resetting ...
 
@@ -146,26 +154,27 @@ Net:   egiga0
 Hit any key to stop autoboot:  0
 Marvell>>
 
-In a next step, the existing kernel is removed and replaced by our USB capable kernel.
+In a next step, the existing kernel is removed and replaced by our USB
+capable kernel.
 
-nand erase 0x100000 0x400000
-fatload usb 0:1 0x8000000 /uImage
-nand write.e 0x8000000 0x100000 0x400000
+    nand erase 0x100000 0x400000
+    fatload usb 0:1 0x8000000 /uImage
+    nand write.e 0x8000000 0x100000 0x400000
 
 In order to boot from the USB stick, the behaviour of the bootloader is
 adjusted. The following commands will erase settings and modify them
 to boot from the USB stick. Finally, the settings are saved (verify
 with printenv).
 
-setenv bootargs
-setenv boot_nand
-setenv bootargs_console 'console=ttyS0,115200'
-setenv bootargs_root 'root=/dev/sda1 rootdelay=10'
-setenv bootcmd_usb 'usb start; nand read.e 0x2000000 0x100000 0x400000'
-setenv bootcmd 'setenv bootargs $(bootargs_console) $(bootargs_root); \
-    run bootcmd_usb; bootm 0x2000000'
-saveenv
-reset
+    setenv bootargs
+    setenv boot_nand
+    setenv bootargs_console 'console=ttyS0,115200'
+    setenv bootargs_root 'root=/dev/sda1 rootdelay=10'
+    setenv bootcmd_usb 'usb start; nand read.e 0x2000000 0x100000 0x400000'
+    setenv bootcmd 'setenv bootargs $(bootargs_console) $(bootargs_root); \
+        run bootcmd_usb; bootm 0x2000000'
+    saveenv
+    reset
 
 The system reboots, the kernel starts and mounts the USB based
 filesystem. Instead of offering the user a shell; the installation of
@@ -212,48 +221,61 @@ tmpfs /var/cache/apt  tmpfs defaults,noatime
 
 and for the network configuration, default back to DHCP:
 
-# cat /etc/network/interfaces
+    # cat /etc/network/interfaces
 
-# The loopback network interface
-auto lo
-iface lo inet loopback
+    # The loopback network interface
+    auto lo
+    iface lo inet loopback
 
-# The primary network interface
-allow-hotplug eth0
-iface eth0 inet dhcp
+    # The primary network interface
+    allow-hotplug eth0
+    iface eth0 inet dhcp
 
-Currently, only the root user is available on the system. Create a default user to use e.g. knx/knx. Note that this user will also be created when installing the knx packages.
+Currently, only the root user is available on the system. Create a default
+user to use e.g. knx/knx. Note that this user will also be created when
+installing the knx packages.
 
-# adduser knx
+    # adduser knx
 
-Since part of the filesystem is mounted on memory (see /etc/fstab); some crucial directories are not created by default. These directories can be created at boot time. Add the following lines to /etc/rc.local.
+Since part of the filesystem is mounted on memory (see /etc/fstab);
+some crucial directories are not created by default. These directories
+can be created at boot time. Add the following lines to /etc/rc.local.
 
-mkdir -p /var/log/knx/
-mkdir -p /var/run/knx/
-chown knx.nogroup /var/log/knx/
-chown knx.nogroup /var/run/knx/
-mkdir -p /var/cache/apt/archives/partial
+    mkdir -p /var/log/knx/
+    mkdir -p /var/run/knx/
+    chown knx.nogroup /var/log/knx/
+    chown knx.nogroup /var/run/knx/
+    mkdir -p /var/cache/apt/archives/partial
 
 Before finishing up; some extra packages are installed:
 
-# install openssh-server ntp ntpdate vim
-# apt-get clean
+    # install openssh-server ntp ntpdate vim
+    # apt-get clean
 
-Shut down the system. At this point, the clean root filesystem is available on the USB memory stick.
-1.6. Starting up: Compiling the Linux kernel: Part 2
-In this section, the cross compiler will be created. You can skip this if you just want to flash your plug with Squeeze.
+Shut down the system. At this point, the clean root filesystem is
+available on the USB memory stick.
+
+### Starting up: Compiling the Linux kernel: Part 2
+
+In this section, the cross compiler will be created. You can skip this
+if you just want to flash your plug with Squeeze.
+
 See this section for simple flashing of your system.
+
 Files
 
-    ARMEL 3.1.4 modules
-    uImage
+1. ARMEL 3.1.4 modules
+2. uImage
 
-Since the kernel that was compiled previously was optimised for booting from an USB memory stick; a final kernel needs to be created to boot from the internal NAND flash, using UbiFS instead of ext2. For that, another configuration is used.
+Since the kernel that was compiled previously was optimised for booting
+from an USB memory stick; a final kernel needs to be created to boot
+from the internal NAND flash, using UbiFS instead of ext2. For that,
+another configuration is used.
 
-$ make ARCH=arm CROSS_COMPILE=arm-linux- uImage
-$ make ARCH=arm CROSS_COMPILE=arm-linux- modules
-$ sudo make INSTALL_MOD_PATH=/home/marc/sheevaplug-build/modules-3.1.4/ \
-    ARCH=arm CROSS_COMPILE=arm-linux- modules_install
+    $ make ARCH=arm CROSS_COMPILE=arm-linux- uImage
+    $ make ARCH=arm CROSS_COMPILE=arm-linux- modules
+    $ sudo make INSTALL_MOD_PATH=/home/marc/sheevaplug-build/modules-3.1.4/ \
+        ARCH=arm CROSS_COMPILE=arm-linux- modules_install
 
 Create an archive of the modules.
 
@@ -262,27 +284,38 @@ $ sudo tar cf /home/marc/sheevaplug-images/sheevaplug-modules-3.1.4.tar \
 $ xz /home/marc/sheevaplug-images/sheevaplug-modules-3.1.4.tar
 
 At this point; all is available to create the final images.
-1.7. Starting up: Creating the base root filesystem: Part 3
-In this section, the cross compiler will be created. You can skip this if you just want to flash your plug with Squeeze.
+
+### Starting up: Creating the base root filesystem: Part 3
+In this section, the cross compiler will be created. You can skip this
+if you just want to flash your plug with Squeeze.
+
 See this section for simple flashing of your system.
+
 Files
 
-    SheevaPlug target
-    SheevaPlug UBI target
+1. SheevaPlug target
+2. SheevaPlug UBI target
 
-After creating a filesystem and compiling the kernel with modules; the both need to be combined. Use the USB stick, mount it and extract the modules into the file system.
+After creating a filesystem and compiling the kernel with modules; the
+both need to be combined. Use the USB stick, mount it and extract the
+modules into the file system.
 
-$ cd /media/usb1
-$ sudo tar xf /home/marc/sheevaplug-images/sheevaplug-modules-3.1.4.tar.xz
-$ sudo find . | while read i ; do sudo touch $i; done
+    $ cd /media/usb1
+    $ sudo tar xf /home/marc/sheevaplug-images/sheevaplug-modules-3.1.4.tar.xz
+    $ sudo find . | while read i ; do sudo touch $i; done
 
-The filesystem on the memory stick is now a perfect image of what needs to be burnt into flash. Before continuing, create a snapshot. The same technique is used as for creating an image of the modules.
-First, an image is created of the filesystem in the USB stick (backup purposes).
+The filesystem on the memory stick is now a perfect image of what needs
+to be burnt into flash. Before continuing, create a snapshot. The same
+technique is used as for creating an image of the modules.
 
-$ sudo tar cf /home/marc/sheevaplug-images/sheeva-armel-squeeze-target.tar \
-    -C /media/usb1/ .
+First, an image is created of the filesystem in the USB stick (backup
+purposes).
 
-Finally, create the filesystem image to flash. The utilities are a part of mtd-utils.
+    $ sudo tar cf /home/marc/sheevaplug-images/sheeva-armel-squeeze-target.tar \
+        -C /media/usb1/ .
+
+Finally, create the filesystem image to flash. The utilities are a part
+of mtd-utils.
 
 [mleeman@bane debian-rootfs]$ sudo mkfs.ubifs -r sheeva-rootfs -m 2048 \
     -e 129024 -c 4096 -o ubifs.img -x zlib
@@ -298,34 +331,42 @@ vol_flags=autoresize
 [mleeman@bane debian-rootfs]$ sudo ubinize -o ubi.img -m 2048 \
     -p 128KiB -s 512 ubi.cfg
 
-1.8. Install GNU/Debian 6.0 on the internal NAND flash
+### Install GNU/Debian 6.0 on the internal NAND flash
+
 Files
 
-    u-boot.kwb
-    uImage
-    SheevaPlug UBI target
+1. u-boot.kwb
+2. uImage
+3. SheevaPlug UBI target
 
-At this point, the final images are created. There are several ways of getting the images onto the SheevaPlug, but having a simple USB stick is probably the simplest (alternatives can be e.g. TFTP).
+At this point, the final images are created. There are several ways of
+getting the images onto the SheevaPlug, but having a simple USB stick
+is probably the simplest (alternatives can be e.g. TFTP).
+
 Place the 3 images on an VFAT formatted USB stick:
 
     u-boot.kwb
     uImage
     ubi.img
 
-Initialise the attached USB drive. Note that I did this with a USB disk that contains a partition, I don’t know if the bootloader will recognise one that does not have a partition
+Initialise the attached USB drive. Note that I did this with a USB
+disk that contains a partition, I don’t know if the bootloader will
+recognise one that does not have a partition
 
-nand device 0
-usb start
-setenv quiet 0
+    nand device 0
+    usb start
+    setenv quiet 0
 
-    write u-boot. This is not really required, but heavily suggested to have better USB support wrt the standard firmware. After writing the bootloader, press reset and let it use the new bootloader.
+write u-boot. This is not really required, but heavily suggested to
+have better USB support wrt the standard firmware. After writing the
+bootloader, press reset and let it use the new bootloader.
 
     nand erase 0x0 0xa0000
     fatload usb 0:1 0x8000000 /u-boot.kwb
     nand write.e 0x8000000 0x0 0xa0000
     reset
 
-    write the kernel to the NAND flash
+write the kernel to the NAND flash
 
     nand device 0
     usb start
@@ -336,23 +377,32 @@ setenv quiet 0
 
 Finally, write the UbiFS root filesystem:
 
-nand erase 0x500000 0x1fb00000
-fatload usb 0:1 0x8000000 /ubi.img
-nand write.e 0x8000000 0x500000 0x1fb00000
+    nand erase 0x500000 0x1fb00000
+    fatload usb 0:1 0x8000000 /ubi.img
+    nand write.e 0x8000000 0x500000 0x1fb00000
 
-The write size is the full flash; if there are too many bad blocks; just adjust the write size to a bit smaller (e.g. 0x1f000000). Don’t worry too much about the bad blocks; bad blocks is pretty normal for low cost NAND flash (in comparison with more expensive NOR flash).
-1.9. Booting in the final system
-Wrapping up, we signal our bootloader to start our system by default, we also need to set that we’re booting a mainline kernel.
+The write size is the full flash; if there are too many bad blocks;
+just adjust the write size to a bit smaller (e.g. 0x1f000000). Don’t
+worry too much about the bad blocks; bad blocks is pretty normal for
+low cost NAND flash (in comparison with more expensive NOR flash).
 
-setenv bootargs 'console=ttyS0,115200 ubi.mtd=2 root=ubi0:rootfs rootfstype=ubifs'
-setenv boot_nand 'nand read.e 0x2000000 0x100000 0x400000'
-setenv bootcmd 'run boot_nand; bootm 0x2000000'
-setenv ethaddr f0:ad:4e:00:36:62
-saveenv
-reset
+### Booting in the final system
 
-Do not forget to set the MAC address to the value that is printed on the plug itself, otherwise, the bootloader will load a default one.
-Remove the memory stick (not required), and reboot. If all works out, the following output should appear:
+Wrapping up, we signal our bootloader to start our system by default,
+we also need to set that we’re booting a mainline kernel.
+
+    setenv bootargs 'console=ttyS0,115200 ubi.mtd=2 root=ubi0:rootfs rootfstype=ubifs'
+    setenv boot_nand 'nand read.e 0x2000000 0x100000 0x400000'
+    setenv bootcmd 'run boot_nand; bootm 0x2000000'
+    setenv ethaddr f0:ad:4e:00:36:62
+    saveenv
+    reset
+
+Do not forget to set the MAC address to the value that is printed on
+the plug itself, otherwise, the bootloader will load a default one.
+
+Remove the memory stick (not required), and reboot. If all works out,
+the following output should appear:
 
 Marvell>>   reset
 resetting ...
@@ -584,7 +634,9 @@ rm /etc/ssh/ssh_host*
 ssh-keygen -t dsa -f /etc/ssh/ssh_host_dsa_key -N ``
 ssh-keygen -t rsa -f /etc/ssh/ssh_host_rsa_key -N ``
 
-The system is now prepared with a GNU/Debian Lenny system to install the remainder of the software on.
+The system is now prepared with a GNU/Debian Lenny system to install
+the remainder of the software on.
+
 2. Customising the system to run KNX/EIB
 2.1. Preparing our KNX/EIB System
 
@@ -594,37 +646,52 @@ The system is now prepared with a GNU/Debian Lenny system to install the remaind
 
 First, add the scorpius repository to your sources.list
 
-deb http://scorpius.homelinux.org/~marc/debian squeeze main contrib non-free
+    deb http://scorpius.homelinux.org/~marc/debian squeeze main contrib non-free
 
 Install lighttpd in order to get a webserver (boa or apache will do as well)
 
-$ sudo apt-get install php5-cgi lighttpd
-$ sudo lighttpd-enable-mod fastcgi
+    $ sudo apt-get install php5-cgi lighttpd
+    $ sudo lighttpd-enable-mod fastcgi
 
 Install the required packages (eibd-clients is optional)
 
-$ sudo apt-get install linknx eibd-server eibd-clients
+    $ sudo apt-get install linknx eibd-server eibd-clients
 
-Have a look in /etc/defaults/eibd-server and /etc/defaults/linknx, enable the services and correct the IPs to match your configuration. Of course, you’ll need a valid XML description of your EIB installation. The default /etc/linknx/house.xml should give you a pretty extensive description to start with.
+Have a look in /etc/defaults/eibd-server and /etc/defaults/linknx, enable
+the services and correct the IPs to match your configuration. Of course,
+you’ll need a valid XML description of your EIB installation. The
+default /etc/linknx/house.xml should give you a pretty extensive
+description to start with.
 
-$ cat /etc/default/eibd-server
-# To enable eibd at startup set this everything != NO
-START_EIBD=YES
+    $ cat /etc/default/eibd-server
+    # To enable eibd at startup set this everything != NO
+    START_EIBD=YES
 
-# Options where EIBD should connect to
-# -i usb: for usb or -i ip: for EIBnet/IP routing
-REMOTE_ARGS="-D -T -S -i ipt:192.168.123.124"
+    # Options where EIBD should connect to
+    # -i usb: for usb or -i ip: for EIBnet/IP routing
+    REMOTE_ARGS="-D -T -S -i ipt:192.168.123.124"
 
-$ cat /etc/default/linknx
-# To enable eibd at startup set this everything != NO
-START_LINKNX=YES
+    $ cat /etc/default/linknx
+    # To enable eibd at startup set this everything != NO
+    START_LINKNX=YES
 
-# Daemon options
-REMOTE_ARGS="--config=/etc/linknx/house.xml"
+    # Daemon options
+    REMOTE_ARGS="--config=/etc/linknx/house.xml"
 
-The options in in eibd-server allow to connect to the eibd device with ETS and the commands will be forwarded in turn to your module (IP or USB).
-For the user friendly interface, you’ll need to extract knxweb in /var/www/. Since most of the effort for this one is custom in any case (creating images for your particular installation); there are no packages for this.
-You will then need to modify the background images and design your layout with the built-in editor (the images will need to be overwritten on your plug, there is no editor support for that as of yet).
-Since knxweb generates a lot of http accesses, you might want to disable in /etc/lighttpd/lighttpd.conf the access logging module (mod_accesslog).
-Sweet Home 3D is a nice cross platform and easy to use 3D modelling tool I used for the attached screenshot.
+The options in in eibd-server allow to connect to the eibd device with
+ETS and the commands will be forwarded in turn to your module (IP or USB).
+For the user friendly interface, you’ll need to extract knxweb in
+/var/www/. Since most of the effort for this one is custom in any case
+(creating images for your particular installation); there are no packages
+for this.
+
+You will then need to modify the background images and design your layout
+with the built-in editor (the images will need to be overwritten on your
+plug, there is no editor support for that as of yet).
+
+Since knxweb generates a lot of http accesses, you might want to disable
+in /etc/lighttpd/lighttpd.conf the access logging module (mod_accesslog).
+
+Sweet Home 3D is a nice cross platform and easy to use 3D modelling tool
+I used for the attached screenshot.
 
