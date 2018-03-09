@@ -1,25 +1,39 @@
-# linknx-settings
+# EIB/KNX on SheevaPlug (using GNU/Debian 6.0)
 
+EIB/KNX on Sheeva Plug using a clean GNU/Debian Squeeze system on the
+NAND flash. This document was generated with asciidoc. The source file
+can be downloaded in case you want to generated other formats.
+## Cleaning the house; installing GNU/Debian Squeeze on the NAND flash
+### Introduction
 
-Dec
-6
-EIB/KNX on SheevaPlug (using GNU/Debian 6.0)
-EIB/KNX on Sheeva Plug using a clean GNU/Debian Squeeze system on the NAND flash. This document was generated with asciidoc. The source file can be downloaded in case you want to generated other formats.
-1. Cleaning the house; installing GNU/Debian Squeeze on the NAND flash
-1.1. Introduction
-The Sheeva Plug is an excellent platform to do all kinds of applications. Combined with its' small form factor and low power consumption for a very decent performance, it is a perfect tool for running control applications on.
-EIB/KNX on Sheeva Plug describes how to install GNU/Debian 5.0 on a SheevaPlug, this document describes the same, but the more recent GNU/Debian 6.0 aka Squeeze. In the remainder of the text, there are two options:
+The Sheeva Plug is an excellent platform to do all kinds of
+applications. Combined with its' small form factor and low power
+consumption for a very decent performance, it is a perfect tool for
+running control applications on.
 
-    Creating a system from scratch; this includes creating a cross compiler, building the kernel and creating the base root filesystem.
-    Using the provided images to flash the SheevaPlug.
+EIB/KNX on Sheeva Plug describes how to install GNU/Debian 5.0 on
+a SheevaPlug, this document describes the same, but the more recent
+GNU/Debian 6.0 aka Squeeze. In the remainder of the text, there are
+two options:
 
-Though the former option is interesting for developers; the latter option provides a low threshold for people that do not care about the inner workings of creating a foreign architecture root filesystem and just care about getting the system up and running with a recent distribution.
-1.2. Starting up: Creating a cross compiler
-In this section, the cross compiler will be created. You can skip this if you just want to flash your plug with Squeeze.
+1. Creating a system from scratch; this includes creating a cross
+   compiler, building the kernel and creating the base root filesystem.
+2. Using the provided images to flash the SheevaPlug.
+
+Though the former option is interesting for developers; the latter option
+provides a low threshold for people that do not care about the inner
+workings of creating a foreign architecture root filesystem and just
+care about getting the system up and running with a recent distribution.
+
+### Starting up: Creating a cross compiler
+In this section, the cross compiler will be created. You can skip this
+if you just want to flash your plug with Squeeze.
+
 See this section for simple flashing of your system.
-Files
 
-    Buildroot configuration file
+#### Files
+
+1. Buildroot configuration file
 
 Before the work can be started, a cross compiler needs to be created: a compiler that will create binary code for the ARM 926 CPU on the SheevaPlug, but will run on the development machine (typically an 64 bit x86 machine). Buildroot is the tool of choice. Download any release (this HOWTO is done with the 2011.11); and extract it on the development machine.
 Buildroot had little dependencies itself; and is configured with a simple .config file. This document opted for a generic toolchain using glibc instead of the normal uclibc that is typically associated with buildroot. This will enable to re-use the toolchain in our final GNU/Debian system. Explore the options, or download the config file, extract it and place it in the extracted buildroot source directory.
