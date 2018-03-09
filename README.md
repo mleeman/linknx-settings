@@ -70,16 +70,16 @@ debootstrap is used to create a foreign root filesystem for the armel
 architecture. Note that this is the GNU/Debian architecture name (armel)
 and not the kernel one (arm).
 
-  $ mkdir sheeva-armel-squeeze/
-  $ sudo cdebootstrap --arch armel --foreign squeeze sheeva-armel-squeeze/ \
-      ftp://ftp.nl.debian.org/debian
+    $ mkdir sheeva-armel-squeeze/
+    $ sudo cdebootstrap --arch armel --foreign squeeze sheeva-armel-squeeze/ \
+        ftp://ftp.nl.debian.org/debian
 
 Before continuing, some minor modifications are done.
 Create an image of the root filesystem that will be used to finish the
 installation:
 
-  $ tar cf /home/marc/sheevaplug-images/sheeva-armel-squeeze-step1.tar -C sheeva-armel-squeeze/ .
-  $ xz /home/marc/sheevaplug-images/sheeva-armel-squeeze-step1.tar
+    $ tar cf /home/marc/sheevaplug-images/sheeva-armel-squeeze-step1.tar -C sheeva-armel-squeeze/ .
+    $ xz /home/marc/sheevaplug-images/sheeva-armel-squeeze-step1.tar
 
 ### Starting up: Compiling the Linux kernel: Part 1
 In this section, the cross compiler will be created. You can skip this
@@ -152,7 +152,10 @@ nand erase 0x100000 0x400000
 fatload usb 0:1 0x8000000 /uImage
 nand write.e 0x8000000 0x100000 0x400000
 
-In order to boot from the USB stick, the behaviour of the bootloader is adjusted. The following commands will erase settings and modify them to boot from the USB stick. Finally, the settings are saved (verify with printenv).
+In order to boot from the USB stick, the behaviour of the bootloader is
+adjusted. The following commands will erase settings and modify them
+to boot from the USB stick. Finally, the settings are saved (verify
+with printenv).
 
 setenv bootargs
 setenv boot_nand
@@ -164,17 +167,33 @@ setenv bootcmd 'setenv bootargs $(bootargs_console) $(bootargs_root); \
 saveenv
 reset
 
-The system reboots, the kernel starts and mounts the USB based filesystem. Instead of offering the user a shell; the installation of GNU/Debian Squeeze is continued: packages will be installed (already available on the image). If your installation stops for some reason, there is some housekeeping to do, if all goes fine; a brandy new Squeeze system will be running of your USB stick. In my case; the installation failed with a kernel panic; so I had to clean up, start the system and you should be dropped into a shell on the serial console. If not; a lot of the modifications can be done on any other Linux system by mounting the stick as ext2:
+The system reboots, the kernel starts and mounts the USB based
+filesystem. Instead of offering the user a shell; the installation of
+GNU/Debian Squeeze is continued: packages will be installed (already
+available on the image). If your installation stops for some reason,
+there is some housekeeping to do, if all goes fine; a brandy new Squeeze
+system will be running of your USB stick. In my case; the installation
+failed with a kernel panic; so I had to clean up, start the system and
+you should be dropped into a shell on the serial console. If not; a lot
+of the modifications can be done on any other Linux system by mounting
+the stick as ext2:
 
-# mv /sbin/init.REAL to /sbin/init
+    # mv /sbin/init.REAL to /sbin/init
 
-Make certain that init is spawning a serial console. there are two options; one with a login (first line) or spawn a bash shell in any case (second line).A good option is to use a bash initially; but replace it with a login once the system is properly configured.
+Make certain that init is spawning a serial console. there are two
+options; one with a login (first line) or spawn a bash shell in any case
+(second line).A good option is to use a bash initially; but replace it
+with a login once the system is properly configured.
 
-# T0:23:respawn:/sbin/getty -L ttyS0 115200 linux
-T0:23:respawn:/bin/bash
+    # T0:23:respawn:/sbin/getty -L ttyS0 115200 linux
+    T0:23:respawn:/bin/bash
 
-There are a number of things that need further taking care of like: - Set the root password (passwd). - Allow rc policy changes (rm /usr/sbin/policy-rc.d)
-Finally; add a proper network configuration in /etc/network/interfaces and add a correct /etc/fstab:
+There are a number of things that need further taking care of like:
+- Set the root password (passwd). - Allow rc policy changes (rm
+/usr/sbin/policy-rc.d)
+
+Finally; add a proper network configuration in /etc/network/interfaces
+and add a correct /etc/fstab:
 
 # cat /etc/fstab
 # /etc/fstab: static file system information.
