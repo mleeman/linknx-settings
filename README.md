@@ -33,49 +33,88 @@ See this section for simple flashing of your system.
 
 #### Files
 
-1. Buildroot configuration file
+#### Buildroot configuration file
 
-Before the work can be started, a cross compiler needs to be created: a compiler that will create binary code for the ARM 926 CPU on the SheevaPlug, but will run on the development machine (typically an 64 bit x86 machine). Buildroot is the tool of choice. Download any release (this HOWTO is done with the 2011.11); and extract it on the development machine.
-Buildroot had little dependencies itself; and is configured with a simple .config file. This document opted for a generic toolchain using glibc instead of the normal uclibc that is typically associated with buildroot. This will enable to re-use the toolchain in our final GNU/Debian system. Explore the options, or download the config file, extract it and place it in the extracted buildroot source directory.
-Type make, sit back and enjoy a couple cups of coffee. The build process will finish with a toolchain and a couple of targets, including some typical embedded root filesystem targets that we can ignore in our setup. The only real target we’re interested in, is the u-boot.kwb file in the output/images/ directory.
-1.3. Starting up: Creating the base root filesystem: Part 1
-In this section, the cross compiler will be created. You can skip this if you just want to flash your plug with Squeeze.
+Before the work can be started, a cross compiler needs to be created:
+a compiler that will create binary code for the ARM 926 CPU on the
+SheevaPlug, but will run on the development machine (typically an 64
+bit x86 machine). Buildroot is the tool of choice. Download any release
+(this HOWTO is done with the 2011.11); and extract it on the development
+machine.
+
+Buildroot had little dependencies itself; and is configured with
+a simple .config file. This document opted for a generic toolchain
+using glibc instead of the normal uclibc that is typically associated
+with buildroot. This will enable to re-use the toolchain in our final
+GNU/Debian system. Explore the options, or download the config file,
+extract it and place it in the extracted buildroot source directory.
+
+Type make, sit back and enjoy a couple cups of coffee. The build process
+will finish with a toolchain and a couple of targets, including some
+typical embedded root filesystem targets that we can ignore in our
+setup. The only real target we’re interested in, is the u-boot.kwb
+file in the output/images/ directory.
+
+### Starting up: Creating the base root filesystem: Part 1
+
+In this section, the cross compiler will be created. You can skip this
+if you just want to flash your plug with Squeeze.
+
 See this section for simple flashing of your system.
-Files
 
-    Debian Staging
+#### Files
 
-debootstrap is used to create a foreign root filesystem for the armel architecture. Note that this is the GNU/Debian architecture name (armel) and not the kernel one (arm).
+1. Debian Staging
 
-$ mkdir sheeva-armel-squeeze/
-$ sudo cdebootstrap --arch armel --foreign squeeze sheeva-armel-squeeze/ \
+debootstrap is used to create a foreign root filesystem for the armel
+architecture. Note that this is the GNU/Debian architecture name (armel)
+and not the kernel one (arm).
+
+  $ mkdir sheeva-armel-squeeze/
+  $ sudo cdebootstrap --arch armel --foreign squeeze sheeva-armel-squeeze/ \
       ftp://ftp.nl.debian.org/debian
 
 Before continuing, some minor modifications are done.
-Create an image of the root filesystem that will be used to finish the installation:
+Create an image of the root filesystem that will be used to finish the
+installation:
 
-$ tar cf /home/marc/sheevaplug-images/sheeva-armel-squeeze-step1.tar -C sheeva-armel-squeeze/ .
-$ xz /home/marc/sheevaplug-images/sheeva-armel-squeeze-step1.tar
+  $ tar cf /home/marc/sheevaplug-images/sheeva-armel-squeeze-step1.tar -C sheeva-armel-squeeze/ .
+  $ xz /home/marc/sheevaplug-images/sheeva-armel-squeeze-step1.tar
 
-1.4. Starting up: Compiling the Linux kernel: Part 1
-In this section, the cross compiler will be created. You can skip this if you just want to flash your plug with Squeeze.
+### Starting up: Compiling the Linux kernel: Part 1
+In this section, the cross compiler will be created. You can skip this
+if you just want to flash your plug with Squeeze.
+
 See this section for simple flashing of your system.
-Files
 
-    config file
+#### Files
 
-In the first phase, the initial base root filesystem install needs to be finished. Since the final goal is to have a clean Squeeze image that allows simple flashing onto the internal NAND flash, this is an intermediary step. As such, a simple USB stick is used to store the filesystem on and the current kernel needs to support booting from USB with an ext2 filesystem.
-Even though buildroot can perfectly compile the kernel, this is done out of tree, using a separate copy of the kernel. Download the Linux kernel from kernel.org and extract it. In the top source directory, place the extracted <a config file as .config.
+1. config file
 
-$ make ARCH=arm CROSS_COMPILE=arm-linux- uImage
+In the first phase, the initial base root filesystem install needs
+to be finished. Since the final goal is to have a clean Squeeze image
+that allows simple flashing onto the internal NAND flash, this is an
+intermediary step. As such, a simple USB stick is used to store the
+filesystem on and the current kernel needs to support booting from USB
+with an ext2 filesystem.
 
-1.5. Starting up: Creating the base root filesystem: Part 2
-In this section, the cross compiler will be created. You can skip this if you just want to flash your plug with Squeeze.
+Even though buildroot can perfectly compile the kernel, this is done
+out of tree, using a separate copy of the kernel. Download the Linux
+kernel from kernel.org and extract it. In the top source directory,
+place the extracted config file as .config.
+
+  $ make ARCH=arm CROSS_COMPILE=arm-linux- uImage
+
+### Starting up: Creating the base root filesystem: Part 2
+In this section, the cross compiler will be created. You can skip this
+if you just want to flash your plug with Squeeze.
+
 See this section for simple flashing of your system.
-Files
 
-    u-boot.kwb
-    uImage
+#### Files
+
+1. u-boot.kwb
+2. uImage
 
 Use a VFAT formatted memory stick and copy the u-boot.kwb file (built with buildroot) and the uImage onto that. Connect the SheevaPlug to your machine with the USB cable and power it up. Make certain you are ready to interrupt the boot cycle with your favourite serial connector (e.g. minicom, screen). The serial settings are <u>115200 8N1</u> on device node /dev/ttyUSB0.
 
